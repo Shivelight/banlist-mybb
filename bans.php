@@ -111,6 +111,7 @@ while($banned = $db->fetch_array($query))
 	// Sanitize all user inputs.
 	$user['username'] = htmlspecialchars_uni($user['username']);
 	$bannedby['username'] = htmlspecialchars_uni($bannedby['username']);
+	$banned['reason'] = htmlspecialchars_uni($banned['reason']);
 
 	$banlist .= "<tr>
 <td class=\"trow1\" align=\"center\">".build_profile_link($user['username'], $user['uid'])."</td>
