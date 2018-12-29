@@ -35,9 +35,9 @@ switch($mybb->input['sortby'])
 	case 'lifted':
 		$options['order_by'] = 'lifted';
 		break;
-	
-	default: 
-		$options['order_by'] = 'dateline';		
+
+	default:
+		$options['order_by'] = 'dateline';
 }
 
 if(isset($mybb->input['page']))
@@ -87,7 +87,7 @@ while($banned = $db->fetch_array($query))
 		$banlength = $bantimes[$banned['bantime']];
 		$remaining = $banned['lifted']-TIME_NOW;
 		$timeremaining = nice_time($remaining, array('short' => 1, 'seconds' => false))."";
-		
+
 		if($remaining < 3600)
 		{
 			$timeremaining = "<span style=\"color: red;\">({$timeremaining} {$lang->ban_remaining})</span>";
@@ -104,9 +104,13 @@ while($banned = $db->fetch_array($query))
 		{
 			$timeremaining = "({$timeremaining} {$lang->ban_remaining})";
 		}
-		
+
 		$timeremaining = my_date($mybb->settings['dateformat'],$banned['lifted'])." <br/ ><span class=\"smalltext\">{$timeremaining}</span>";
 	}
+
+	// Sanitize all user inputs.
+	$user['username'] = htmlspecialchars_uni($user['username']);
+	$bannedby['username'] = htmlspecialchars_uni($bannedby['username']);
 
 	$banlist .= "<tr>
 <td class=\"trow1\" align=\"center\">".build_profile_link($user['username'], $user['uid'])."</td>
