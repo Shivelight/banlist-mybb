@@ -7,6 +7,8 @@ require_once('global.php');
 
 define("PAGINATION",20);
 
+$this_script = basename(__FILE__);
+
 $lang->load("modcp");
 
 if($mybb->user['uid'] == 0)
@@ -52,7 +54,7 @@ $extra = "&orderby={$options['order_by']}{$ascdesc}";
 $query = $db->simple_select("banned", "COUNT(uid) AS count");
 $bannum = $db->fetch_field($query, "count");
 
-$multipage = multipage($bannum,PAGINATION,$page,'bans.php?page={page}'.$extra);
+$multipage = multipage($bannum,PAGINATION,$page,"{$this_script}?page={page}".$extra);
 
 $options['limit'] = PAGINATION;
 $options['limit_start'] = ($page - 1) * PAGINATION;
@@ -64,8 +66,8 @@ $bans = '<tr>
 <td class="tcat" align="center"><span class="smalltext"><strong>'.$lang->username.'</strong></span></td>
 <td class="tcat" align="center"><span class="smalltext"><strong>'.$lang->reason.'</strong></span></td>
 <td class="tcat" align="center"><span class="smalltext"><strong>'.$lang->ban_bannedby.'</strong></span></td>
-<td class="tcat" align="center"><span class="smalltext"><strong><a href="bans.php?sortby=issued'.$ascdesci.'">Ban Date</a></strong></span></td>
-<td class="tcat" align="center"><span class="smalltext"><strong><a href="bans.php?sortby=lifted'.$ascdesci.'">Unban Date</a></strong></span></td>
+<td class="tcat" align="center"><span class="smalltext"><strong><a href="{$this_script}?sortby=issued'.$ascdesci.'">Ban Date</a></strong></span></td>
+<td class="tcat" align="center"><span class="smalltext"><strong><a href="{$this_script}?sortby=lifted'.$ascdesci.'">Unban Date</a></strong></span></td>
 </tr>';
 
 $banlist = '';
