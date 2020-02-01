@@ -42,7 +42,7 @@ switch($mybb->input['sortby'])
 		$options['order_by'] = 'dateline';
 }
 
-if(isset($mybb->input['page']))
+if(isset($mybb->input['page']) && !empty($mybb->input['page']))
 {
 	$page = (int)$mybb->input['page'];
 } else {
